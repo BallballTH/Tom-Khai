@@ -102,7 +102,7 @@ void Game::addOption(std::string sceneId, std::vector<Option> options) {
   checkIfSceneExists(sceneId);
   for (int i = 0; i < options.size(); i++) {
     checkIfSceneExists(options[i].sceneId);
-    Game::scenes[sceneId]->addOption(options[i].text, options[i].sceneId, options[i].event);
+    Game::scenes[sceneId]->addOption(parseText(options[i].text), options[i].sceneId, options[i].event);
   }
 }
 

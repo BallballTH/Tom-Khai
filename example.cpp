@@ -39,7 +39,7 @@ int main() {
 
   // Add option to trigger event (Example: When choose Go to something, it will trigger event 6event_1)
   Game::addOption("5", {
-    {"Special?", "6"},
+    {"[b]Special?[/]", "6"},
     {"What the ", "3"},
     {"Go to something", "4", "6event_1"},
   });
