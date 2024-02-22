@@ -4,12 +4,10 @@
 #include <string>
 #include <set>
 
-
 struct Option {
   std::string text;
   std::string sceneId;
   std::string event;
-  std::string statchange;
 };
 
 class Scene {
@@ -18,15 +16,18 @@ class Scene {
   bool isEndScene;
   std::vector<Option> options;
   std::set<std::string> events;
+  std::set<std::string> events;
 
+  Scene(std::string id, std::string dialogue, bool isEndScene=false);
   Scene(std::string id, std::string dialogue, bool isEndScene=false);
 
   void printScene(); 
 
-  void addOption(std::string text, std::string nextSceneId, std::string event, std::string statchange);
+  void addOption(std::string text, std::string nextSceneId, std::string event);
 
   void addEvent(std::string event);
 
+  std::pair<std::string, std::string> chooseOption(int choice);
   std::pair<std::string, std::string> chooseOption(int choice);
 
   std::string getId();
@@ -39,6 +40,8 @@ class Scene {
 
   bool hasEvent(std::string event);
 
+  bool hasEvent(std::string event);
+
   friend class Game;
 };
 
@@ -46,6 +49,7 @@ class Game {
   static inline player Player;
   static inline std::map<std::string, Scene*> scenes;
   static inline Scene* currentScene;
+  static inline std::set<std::string> currentEvents;
   static inline std::set<std::string> currentEvents;
 
   static void setCurrentScene(std::string id);
@@ -57,12 +61,15 @@ class Game {
   static void printCurrentScene();
   static std::string parseText(std::string text);
   static void addCurrentEvent(std::string event);
+  static void addCurrentEvent(std::string event);
 
   public:
 
     static void printstats();
 
     static void addScene(std::string id, std::string dialogue, bool isEndScene=false);
+
+    static void addEvent(std::string sceneId, std::string event);
 
     static void addEvent(std::string sceneId, std::string event);
 
@@ -74,4 +81,3 @@ class Game {
 
     static void addPlayer(player p);
 };
-
