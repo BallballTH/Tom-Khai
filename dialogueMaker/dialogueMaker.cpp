@@ -1,6 +1,7 @@
 #include <iostream>
 #include "dialogueMaker.h"
 #include <Windows.h>
+#include <Windows.h>
 
 Scene::Scene(std::string id, std::string dialogue, bool isEndScene) {
 Scene::Scene(std::string id, std::string dialogue, bool isEndScene) {
@@ -15,7 +16,7 @@ void Scene::printScene() {
   }*/
   std::cout << "---------------------------------------------------------------------------------------------------------------------------";
   //std::cout << '\n' << dialogue << '\n';
-  std::cout << '\n';
+  std::cout<< '\n';
   for (int i = 0; i < dialogue.size(); i++)
   {
     std::cout << dialogue[i];
@@ -23,8 +24,6 @@ void Scene::printScene() {
   }
   std::cout << '\n';
   std::cout << "---------------------------------------------------------------------------------------------------------------------------";
-  std::cout << '\n';
-  Game::printstats();
   /*for (int i = 0; i < sceneLength; i++) {
     std::cout << "-";
   }*/
@@ -140,7 +139,7 @@ void Game::addCurrentEvent(std::string event) {
 void Game::askForChoice() {
   while (1) {
     std::string choice;
-    std::string x = "Enter Your Choice: (q to quit game): ";
+    std::string x = "Enter Your Choice: ";
     for (int i = 0; i < x[i]; i++)
     {
       std::cout << x[i];
