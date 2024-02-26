@@ -1,4 +1,5 @@
 #include "player.h"
+#include "../dialogueMaker/dialogueMaker.h"
 #include <iostream>
 
 void movecursor(int x_position=0,int y_postion=0){
@@ -66,29 +67,8 @@ void player::printstats(){
     std::cout<<"\n------------------------------------------------------------------------------------------------------------------------------------------";
 }
 
-void player::changestat(std::string change) {
-    char text[50];;
-    double amount;
-    char operation;
 
-    sscanf(change.c_str(), "%s %c %lf", text, &operation, &amount);
-    std::string stat = text;
-    // Check the operation
-    if (operation == '-') {
-        // Decrease the stat
-        if (stat == "hp") {
-            hp -= amount;
-        } else if (stat == "sa") {
-            sanity -= amount;
-        }
-    } else if (operation == '+') {
-        // Increase the stat
-        if (stat == "hp") {
-            hp += amount;
-        } else if (stat == "sa") {
-            sanity += amount;
-        }
-    }
+int main(){
+    player kaitom;
+    kaitom.printstats();
 }
-
-
