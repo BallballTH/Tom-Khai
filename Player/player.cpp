@@ -72,7 +72,6 @@ void player::changestat(std::string change) {
     char operation;
 
     sscanf(change.c_str(), "%s %c %lf", text, &operation, &amount);
-    std::cout << "kuytssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss";
     std::string stat = text;
     // Check the operation
     if (operation == '-') {
