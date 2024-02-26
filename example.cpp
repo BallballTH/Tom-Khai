@@ -60,3 +60,4 @@ int main() {
   // Game loop
   Game::runGame("begin");
 }
+

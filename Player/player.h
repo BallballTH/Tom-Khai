@@ -14,3 +14,4 @@ class player{
 
 void movecursor(int,int);
 int currentcursor(char);
+
