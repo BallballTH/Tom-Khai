@@ -1,13 +1,16 @@
 #include "../Player/player.h"
+#include "../Player/player.h"
 #include <map>
 #include <vector>
 #include <string>
 #include <set>
 
+
 struct Option {
   std::string text;
   std::string sceneId;
   std::string event;
+  std::string statchange;
 };
 
 class Scene {
@@ -23,7 +26,7 @@ class Scene {
 
   void printScene(); 
 
-  void addOption(std::string text, std::string nextSceneId, std::string event);
+  void addOption(std::string text, std::string nextSceneId, std::string event, std::string statchange);
 
   void addEvent(std::string event);
 
@@ -46,7 +49,7 @@ class Scene {
 };
 
 class Game {
-  static inline player Player;
+  static player Player;
   static inline std::map<std::string, Scene*> scenes;
   static inline Scene* currentScene;
   static inline std::set<std::string> currentEvents;
@@ -65,8 +68,6 @@ class Game {
 
   public:
 
-    static void printstats();
-
     static void addScene(std::string id, std::string dialogue, bool isEndScene=false);
 
     static void addEvent(std::string sceneId, std::string event);
@@ -80,4 +81,6 @@ class Game {
     static void runGame(std::string startSceneId);
 
     static void addPlayer(player p);
+
+    static void printstats();
 };

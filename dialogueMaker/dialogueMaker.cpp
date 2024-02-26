@@ -14,16 +14,11 @@ void Scene::printScene() {
   /*for (int i = 0; i < sceneLength; i++) {
     std::cout << "-";
   }*/
-  std::cout << "---------------------------------------------------------------------------------------------------------------------------";
-  //std::cout << '\n' << dialogue << '\n';
-  std::cout<< '\n';
-  for (int i = 0; i < dialogue.size(); i++)
-  {
-    std::cout << dialogue[i];
-    Sleep(1);
-  }
+  std::cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
+  std::cout << '\n' << dialogue << '\n';
+  std::cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
   std::cout << '\n';
-  std::cout << "---------------------------------------------------------------------------------------------------------------------------";
+  Game::printstats();
   /*for (int i = 0; i < sceneLength; i++) {
     std::cout << "-";
   }*/
@@ -36,11 +31,12 @@ void Scene::printScene() {
   std::cout << "\n";
 }
 
-void Scene::addOption(std::string text, std::string nextSceneId, std::string event) {
+void Scene::addOption(std::string text, std::string nextSceneId, std::string event, std::string statchange) {
   Option option;
   option.text = text;
   option.sceneId = nextSceneId;
   option.event = event;
+  option.statchange = statchange;
   options.push_back(option);
 }
 
@@ -101,7 +97,7 @@ void Game::addOption(std::string sceneId, std::vector<Option> options) {
   checkIfSceneExists(sceneId);
   for (int i = 0; i < options.size(); i++) {
     checkIfSceneExists(options[i].sceneId);
-    Game::scenes[sceneId]->addOption(parseText(options[i].text), options[i].sceneId, options[i].event);
+    Game::scenes[sceneId]->addOption(parseText(options[i].text), options[i].sceneId, options[i].event, options[i].statchange);
   }
 }
 
@@ -164,6 +160,7 @@ void Game::askForChoice() {
 
     if (choiceInt > 0 && choiceInt <= Game::currentScene->getNumOptions()) {
       std::pair<std::string, std::string> nextScene = Game::currentScene->chooseOption(choiceInt);
+      Player.changestat(Game::currentScene->options[choiceInt-1].statchange);
       std::string nextSceneId = nextScene.first;
       std::string event = nextScene.second;
       Game::setCurrentScene(nextSceneId);
@@ -263,4 +260,7 @@ void Game::addPlayer(player p){
 
 void Game::printstats(){
   Player.printstats();
+
 }
+
+player Game::Player;

@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <windows.h>    //for SetConsoleCursorPosition
 
@@ -8,6 +9,7 @@ class player{
         double sanity_max = 100;
     public:
         void printstats();
+        void changestat(std::string change);           //use keyword "hp" or "sa" example:hp-1
 };
 
 void movecursor(int,int);
