@@ -68,7 +68,7 @@ void player::printstats(){
 }
 
 
-int main(){
-    player kaitom;
-    kaitom.printstats();
-}
+// int main(){
+//     player kaitom;
+//     kaitom.printstats();
+// }
