@@ -66,9 +66,9 @@ class Game {
   static void addCurrentEvent(std::string event);
   static void addCurrentEvent(std::string event);
 
-  static void printstats();
-
   public:
+
+    static void printstats();
 
     static void addScene(std::string id, std::string dialogue, bool isEndScene=false);
 
