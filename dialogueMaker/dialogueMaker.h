@@ -66,6 +66,8 @@ class Game {
   static void addCurrentEvent(std::string event);
   static void addCurrentEvent(std::string event);
 
+  static void printstats();
+
   public:
 
     static void addScene(std::string id, std::string dialogue, bool isEndScene=false);
@@ -81,7 +83,5 @@ class Game {
     static void runGame(std::string startSceneId);
 
     static void addPlayer(player p);
-
-    static void printstats();
 };
 
