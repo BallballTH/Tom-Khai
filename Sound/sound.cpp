@@ -4,9 +4,28 @@
 #include "../dialogueMaker/dialogueMaker.h"
 #pragma comment(lib, "winmm.lib")
 
-int main() {
+class PlaySound{
+    public:
+        void playsoundss(string);
+        void StopPlay();
+};
 
-    {PlaySound(TEXT("keyboard"), NULL, SND_FILENAME | SND_ASYNC); Sleep(5000);} //play 5 sec
+void PlaySound::playsoundss(string sceneId){
+    switch(sceneId){
+        case "1-2":
+            PlaySound(TEXT("keyboard"), NULL, SND_FILENAME | SND_ASYNC);
+
+    }
+}
+
+void PlaySound::StopPlay(){
+    PlaySound(NULL, NULL, 0);
+}
+
+
+int main() {
+    
+    {PlaySound(TEXT("keyboard"), NULL, SND_FILENAME | SND_ASYNC); Sleep(10000);} //play 5 sec
 
     // PlaySound(NULL, NULL, 0);
     // Sleep(5000);

@@ -1,6 +1,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include "../Sound/sound.cpp"
 
 struct Option {
   std::string text;
@@ -44,6 +45,8 @@ class Game {
   static bool gameEnded();
   static void printCurrentScene();
   static std::string parseText(std::string text);
+
+  static void Playsound();
 
   public:
     static void addScene(std::string id, std::string dialogue, bool isEndScene=false);

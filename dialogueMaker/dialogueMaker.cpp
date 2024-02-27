@@ -13,7 +13,9 @@ void Scene::printScene() {
     std::cout << "-";
   }*/
   std::cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
+  PlaySound::playsoundss("keyboard")
   std::cout << '\n' << dialogue << '\n';
+  PlaySound::StopPlay();
   std::cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
   /*for (int i = 0; i < sceneLength; i++) {
     std::cout << "-";
@@ -96,6 +98,7 @@ void Game::askForChoice() {
 
     if (choiceInt > 0 && choiceInt <= Game::currentScene->getNumOptions()) {
       std::string nextSceneId = Game::currentScene->chooseOption(choiceInt);
+      PlaySound::playsoundss(nextSceneId);
       setCurrentScene(nextSceneId);
       break;
     } else {
@@ -184,4 +187,9 @@ std::string Game::parseText(std::string text) {
     parsedText += "\033[m";
   }
   return parsedText;
+}
+
+
+void Game::playersound(){
+
 }
