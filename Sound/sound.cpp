@@ -1,33 +1,46 @@
 #include <windows.h>
 #include <mmsystem.h>
 #include <iostream>
-#include "../dialogueMaker/dialogueMaker.h"
+
+// #include "../dialogueMaker/dialogueMaker.h"
 #pragma comment(lib, "winmm.lib")
 
-class PlaySound{
-    public:
-        void playsoundss(string);
-        void StopPlay();
+class Playsound {
+public:
+    void static playsoundbg(const std::string& sceneId);
+    // void static playefsound(const std::string& sceneId);
+    void static StopPlay();
 };
 
-void PlaySound::playsoundss(string sceneId){
-    switch(sceneId){
-        case "1-2":
-            PlaySound(TEXT("keyboard"), NULL, SND_FILENAME | SND_ASYNC);
-
+void Playsound::playsoundbg(const std::string& sceneId) {
+    if (sceneId == "begin") {
+        PlaySound(TEXT("keyboard"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
     }
 }
 
-void PlaySound::StopPlay(){
+// void Playsound::playefsound(const std::string& sceneId) {
+//     if (sceneId == "1-2") {
+//         PlaySound(TEXT("magic"), NULL, SND_FILENAME | SND_ASYNC );
+//     }
+// }
+
+
+void Playsound::StopPlay() {
     PlaySound(NULL, NULL, 0);
 }
 
 
 int main() {
-    
-    {PlaySound(TEXT("keyboard"), NULL, SND_FILENAME | SND_ASYNC); Sleep(10000);} //play 5 sec
+    Playsound::playsoundbg("begin");
 
-    // PlaySound(NULL, NULL, 0);
+    std::cout << "123456789\n"; //test
+    int x;
+    std::cin >> x;
+
+    Playsound::StopPlay();
+
+    
+    // Playsound::playefsound("1-2");
     // Sleep(5000);
 
     return 0;
