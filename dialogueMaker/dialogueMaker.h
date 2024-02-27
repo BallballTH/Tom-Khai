@@ -50,6 +50,7 @@ class Scene {
 
 class Game {
   static player Player;
+  static inline player Player;
   static inline std::map<std::string, Scene*> scenes;
   static inline Scene* currentScene;
   static inline std::set<std::string> currentEvents;
