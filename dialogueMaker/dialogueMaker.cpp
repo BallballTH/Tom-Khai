@@ -135,14 +135,14 @@ void Game::addCurrentEvent(std::string event) {
 void Game::askForChoice() {
   while (1) {
     std::string choice;
-    std::string x = "Enter Your Choice: ";
-    for (int i = 0; i < x[i]; i++)
-    {
-      std::cout << x[i];
-      Sleep(15);
-    }
-//    std::cout << "\n\nEnter your choice: ";
+    std::cout << "Enter your choice: (q to quit game): ";
     std::cin >> choice;
+
+    if (choice == "q") {
+      std::cout << "Thanks for playing!\n";
+      cleanUp();
+      exit(0);
+    }
 
     if (choice == "q") {
       std::cout << "Thanks for playing!\n";
@@ -261,6 +261,3 @@ void Game::addPlayer(player p){
 void Game::printstats(){
   Player.printstats();
 }
-
-
-
