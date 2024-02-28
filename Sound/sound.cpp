@@ -8,7 +8,7 @@
 class Playsound {
 public:
     void static playsoundbg(const std::string& sceneId);
-    // void static playefsound(const std::string& sceneId);
+    void static playefsound(const std::string& sceneId); // add efsound ระหว่างเล่น bg ไม่ได้ทีTT 
     void static StopPlay();
 };
 
@@ -18,11 +18,18 @@ void Playsound::playsoundbg(const std::string& sceneId) {
     }
 }
 
-// void Playsound::playefsound(const std::string& sceneId) {
-//     if (sceneId == "1-2") {
-//         PlaySound(TEXT("magic"), NULL, SND_FILENAME | SND_ASYNC );
-//     }
-// }
+void Playsound::playefsound(const std::string& sceneId) {
+    if (sceneId == "1-1") {
+        PlaySound(TEXT("magic"), NULL, SND_FILENAME | SND_ASYNC ); // add efsound ระหว่างเล่น bg ไม่ได้ทีTT
+    }else if(sceneId == "1-2"){
+        PlaySound(TEXT("magic"), NULL, SND_FILENAME | SND_ASYNC );
+    }else if(sceneId == "2-1"){
+        PlaySound(TEXT("magic"), NULL, SND_FILENAME | SND_ASYNC );
+    }
+    else if(sceneId == "2-2"){
+        PlaySound(TEXT("magic"), NULL, SND_FILENAME | SND_ASYNC );
+    }
+}
 
 
 void Playsound::StopPlay() {
@@ -30,22 +37,23 @@ void Playsound::StopPlay() {
 }
 
 
-int main() {
-    Playsound::playsoundbg("begin");
+// int main() {
+//     Playsound::playsoundbg("begin");
+    
+//     std::cout << "123456789\n"; //dialogue & options
+//     int x;
+//     std::cin >> x;
 
-    std::cout << "123456789\n"; //test
-    int x;
-    std::cin >> x;
-
-    Playsound::StopPlay();
+//     Playsound::StopPlay();
 
     
-    // Playsound::playefsound("1-2");
-    // Sleep(5000);
 
-    return 0;
-}
+//     return 0;
+// }
+
+// Playsound::playefsound("1-2");
+// Sleep(5000);
 
 // cd "d:\cpp\project\Tom-Khai\Sound\"
-// g++ sound.cpp -o test -lwinmm
-//.\test
+// g++ sound.cpp -o sound -lwinmm
+//./sound
