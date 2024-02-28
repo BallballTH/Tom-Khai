@@ -12,9 +12,7 @@ void Scene::printScene() {
     std::cout << "-";
   }*/
   std::cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
-  PlaySound::playsoundss("keyboard")
   std::cout << '\n' << dialogue << '\n';
-  PlaySound::StopPlay();
   std::cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
   std::cout << '\n';
   Game::printstats();
@@ -112,6 +110,9 @@ void Game::askForChoice() {
     std::string choice;
     std::cout << "Enter your choice: ";
     std::cin >> choice;
+
+    // const std::string sceneId;
+    // Playsound::playefsound(sceneId);
 
     int choiceInt;
     try {
@@ -220,4 +221,9 @@ std::string Game::parseText(std::string text) {
 void Game::addPlayer(player p){
   Player = p;
 }
+
+void Game::printstats(){
+  Player.printstats();
+}
+
 
