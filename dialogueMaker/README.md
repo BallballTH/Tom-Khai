@@ -11,5 +11,5 @@ g++ -Wall main.cpp dialogueMaker/dialogueMaker.cpp -o main -std=c++17
 ./main
 ```
 ## Example
-Please take a look at [`main.cpp`](https://github.com/BallballTH/Tom-Khai/blob/main/main.cpp)
+Please take a look at [`example.cpp`](https://github.com/BallballTH/Tom-Khai/blob/main/example.cpp)
 
