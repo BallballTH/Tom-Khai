@@ -74,8 +74,6 @@ class Game {
 
     static void addPlayer(player p);
 
-    static void printstats();
-
     static void addScene(std::string id, std::string dialogue, bool isEndScene=false);
 
     static void addEvent(std::string sceneId, std::string event);

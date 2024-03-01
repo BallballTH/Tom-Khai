@@ -107,6 +107,7 @@ void Game::addCurrentEvent(std::string event) {
 
 void Game::askForChoice() {
   while (1) {
+    std::string choice;
     std::string x = "Enter Your Choice: (q to quit game): ";
     for (int i = 0; i < x[i]; i++)
     {
@@ -292,10 +293,3 @@ void Game::ResetSaveFile(const std::string& filename){
       std::cerr << "Unable to open file: " << filename << std::endl;
   }  
 }
-
-
-
-void Game::printstats(){
-  Player.printstats();
-}
-
