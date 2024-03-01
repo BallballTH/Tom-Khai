@@ -1,59 +1,28 @@
-#include <windows.h>
-#include <mmsystem.h>
-#include <iostream>
-
-// #include "../dialogueMaker/dialogueMaker.h"
-#pragma comment(lib, "winmm.lib")
-
-class Playsound {
-public:
-    void static playsoundbg(const std::string& sceneId);
-    void static playefsound(const std::string& sceneId); // add efsound ระหว่างเล่น bg ไม่ได้ทีTT 
-    void static StopPlay();
-};
+#include "sound.h"
 
 void Playsound::playsoundbg(const std::string& sceneId) {
     if (sceneId == "begin") {
-        PlaySound(TEXT("keyboard"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+        // PlaySound(TEXT("Sound/sounds/bgmusic"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+        mciSendString("play Sound/sounds/musicbg.wav", NULL, 0, NULL);
     }
 }
 
-void Playsound::playefsound(const std::string& sceneId) {
-    if (sceneId == "1-1") {
-        PlaySound(TEXT("magic"), NULL, SND_FILENAME | SND_ASYNC ); // add efsound ระหว่างเล่น bg ไม่ได้ทีTT
-    }else if(sceneId == "1-2"){
-        PlaySound(TEXT("magic"), NULL, SND_FILENAME | SND_ASYNC );
-    }else if(sceneId == "2-1"){
-        PlaySound(TEXT("magic"), NULL, SND_FILENAME | SND_ASYNC );
-    }
-    else if(sceneId == "2-2"){
-        PlaySound(TEXT("magic"), NULL, SND_FILENAME | SND_ASYNC );
-    }
-}
+void Playsound::playsoundef(const std::string& statchange){
+    char text[50];
+    double amount;
+    char operation;
+    sscanf(statchange.c_str(), "%s %c %lf", text, &operation, &amount);
 
+    if(operation == '-'){
+        // PlaySound(TEXT("Sound/soundf/hurt"), NULL, SND_FILENAME | SND_ASYNC );
+        mciSendString("play Sound/soundf/hurt.wav", NULL, 0, NULL);
+    }else if(operation == '+'){
+        mciSendString("play Sound/soundf/pop.wav", NULL, 0, NULL);
+        // PlaySound(TEXT("Sound/soundf/pop"), NULL, SND_FILENAME | SND_ASYNC );
+    }else return;
+}
 
 void Playsound::StopPlay() {
     PlaySound(NULL, NULL, 0);
 }
 
-
-// int main() {
-//     Playsound::playsoundbg("begin");
-    
-//     std::cout << "123456789\n"; //dialogue & options
-//     int x;
-//     std::cin >> x;
-
-//     Playsound::StopPlay();
-
-    
-
-//     return 0;
-// }
-
-// Playsound::playefsound("1-2");
-// Sleep(5000);
-
-// cd "d:\cpp\project\Tom-Khai\Sound\"
-// g++ sound.cpp -o sound -lwinmm
-//./sound

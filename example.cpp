@@ -2,6 +2,7 @@
 
 
 int main() {
+  Playsound::playsoundbg("begin");
   player kaitom;
   Game::addPlayer(kaitom);
   // Create scenes
@@ -60,4 +61,5 @@ int main() {
   // Game loop
   Game::runGame("begin");
 }
+
 

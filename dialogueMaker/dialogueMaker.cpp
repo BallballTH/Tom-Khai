@@ -111,9 +111,6 @@ void Game::askForChoice() {
     std::cout << "Enter your choice: ";
     std::cin >> choice;
 
-    // const std::string sceneId;
-    // Playsound::playefsound(sceneId);
-
     int choiceInt;
     try {
       choiceInt = stoi(choice);
@@ -124,6 +121,7 @@ void Game::askForChoice() {
 
     if (choiceInt > 0 && choiceInt <= Game::currentScene->getNumOptions()) {
       std::pair<std::string, std::string> nextScene = Game::currentScene->chooseOption(choiceInt);
+      Playsound::playsoundef(Game::currentScene->options[choiceInt-1].statchange);
       Player.changestat(Game::currentScene->options[choiceInt-1].statchange);
       std::string nextSceneId = nextScene.first;
       std::string event = nextScene.second;
@@ -225,5 +223,4 @@ void Game::addPlayer(player p){
 void Game::printstats(){
   Player.printstats();
 }
-
 
