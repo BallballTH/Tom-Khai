@@ -245,10 +245,10 @@ void Game::LoadSave(const std::string& filename){
       std::string line;
       std::string tempSceneid;
       std::string tempEvent;
-      while (std::getline(inFile, line)) {
-          std::istringstream iss(line);
+      while (std::getline(inFile, line)) {        //if see \n
+          std::istringstream iss(line);           //istringstream = if spacebar then end
           std::string key;
-          if (iss >> key) {
+          if (iss >> key) {                       //replace old info
               if (key == "HP:") {
                   iss >> PlayerP.hp;                        // set hp from file to current hp
                } else if (key == "Sanity:") {
@@ -264,7 +264,7 @@ void Game::LoadSave(const std::string& filename){
           }
        }
        Game::setCurrentScene(tempSceneid);
-       Game::runGame(Game::currentScene->getId());
+       Game::runGame(Game::currentScene->getId()); //run at this id
       //  std::cout << "Player data loaded from " << filename << std::endl;
       inFile.close(); // Close the file
    } else {
@@ -272,21 +272,21 @@ void Game::LoadSave(const std::string& filename){
   }
 }
 
-void Game::SaveFile(const std::string& filename) {
+void Game::SaveFile(const std::string& filename) {  //void = no return , Game = class , Savefile = function, const = cannot change 
   std::ofstream outFile(filename);                     // Open the file for writing
   if (outFile.is_open()) {
         // Write player stats to the file
       outFile << "HP: " << PlayerP.hp << "/" << PlayerP.hpmax << std::endl;
       outFile << "Sanity: " << PlayerP.sanity << "/" << PlayerP.sanity_max << std::endl;
-      outFile << "Scene: " << Game::currentScene->id << std::endl;
+      outFile << "Scene: " << Game::currentScene->id << std::endl; // Place n point where it is
       outFile << "CurrentEvents: ";
-      for (const auto& event : Game::currentEvents) {
+      for (const auto& event : Game::currentEvents) { //assign right now event to be currentEvents
         outFile << event << ' ';
       }
       std::cout << "\nPlayer data saved to " << filename << std::endl;
       outFile.close(); // Close the file
     } else {
-      std::cerr << "Unable to open file: " << filename << std::endl;
+      std::cerr << "Unable to open file: " << filename << std::endl; //cerr = instead of saying error
   }
 }
 

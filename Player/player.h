@@ -15,7 +15,7 @@ class player{
         bool CheckIfdied();
         void printstats();
         void changestat(const std::string& change);                                //use keyword "hp" or "sa" example: "hp-1"
-        friend class Game;
+        friend class Game; //game can see player's class
 };
 
 void movecursor(int,int);
