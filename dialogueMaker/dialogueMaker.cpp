@@ -156,6 +156,13 @@ void Game::cleanUp() {
 }
 
 bool Game::gameEnded() {
+  if (PlayerP.CheckIfdied()) {
+    setCurrentScene("bad_ending");      // Change to the "die" scene
+    printCurrentScene();                // Print the "die" scene
+    Game::ResetSaveFile("save.txt");
+    cleanUp();
+  }
+  
   if (Game::currentScene->getIsEndScene()) {
     Game::printCurrentScene();
     Game::ResetSaveFile("save.txt");
@@ -178,13 +185,6 @@ void Game::runGame(std::string startSceneId) {
     printCurrentScene();
     askForChoice();
     // Check if player's HP or SA is 0
-    if (PlayerP.CheckIfdied()) {
-      setCurrentScene("bad_ending");      // Change to the "die" scene
-      printCurrentScene();                // Print the "die" scene
-      Game::ResetSaveFile("save.txt");
-      cleanUp();
-      exit(0);
-    }
   }
 }
 
