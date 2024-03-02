@@ -11,7 +11,7 @@ void Playsound::playsoundef(const std::string& statchange){
     char text[50];
     double amount;
     char operation;
-    sscanf(statchange.c_str(), "%s %c %lf", text, &operation, &amount);
+    sscanf(statchange.c_str(), "%[^-+ ] %c %lf", text, &operation, &amount);
 
     if(operation == '-'){
         // PlaySound(TEXT("Sound/soundf/hurt"), NULL, SND_FILENAME | SND_ASYNC );
