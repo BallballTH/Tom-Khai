@@ -28,12 +28,12 @@ void Scene::printScene() {
   std::cout << "\n";
 }
 
-void Scene::addOption(std::string text, std::string nextSceneId, std::string event, std::string statchange) {
+void Scene::addOption(std::string text, std::string nextSceneId, std::string statchange, std::string event) {
   Option option;
   option.text = text;
   option.sceneId = nextSceneId;
-  option.event = event;
   option.statchange = statchange;
+  option.event = event;
   options.push_back(option);
 }
 
@@ -79,7 +79,7 @@ void Game::addOption(std::string sceneId, std::vector<Option> options) {
   checkIfSceneExists(sceneId);
   for (int i = 0; i < options.size(); i++) {
     checkIfSceneExists(options[i].sceneId);
-    Game::scenes[sceneId]->addOption(parseText(options[i].text), options[i].sceneId, options[i].event, options[i].statchange);
+    Game::scenes[sceneId]->addOption(parseText(options[i].text), options[i].sceneId, options[i].statchange, options[i].event);
   }
 }
 
@@ -156,11 +156,8 @@ void Game::cleanUp() {
 
 bool Game::gameEnded() {
   if (Game::currentScene->getIsEndScene()) {
-    PlayerP.hp = 0;
-    PlayerP.sanity = 0;
     Game::printCurrentScene();
     Game::ResetSaveFile("save.txt");
-    
     cleanUp();
     return true;
   }
@@ -179,6 +176,14 @@ void Game::runGame(std::string startSceneId) {
   while (!gameEnded()) { 
     printCurrentScene();
     askForChoice();
+    // Check if player's HP or SA is 0
+    if (PlayerP.CheckIfdied()) {
+      setCurrentScene("bad_ending");      // Change to the "die" scene
+      printCurrentScene();                // Print the "die" scene
+      Game::ResetSaveFile("save.txt");
+      cleanUp();
+      exit(0);
+    }
   }
 }
 
@@ -245,6 +250,7 @@ void Game::LoadSave(const std::string& filename){
   if (inFile.is_open()) {
       std::string line;
       std::string tempSceneid;
+      std::string tempEvent;
       while (std::getline(inFile, line)) {
           std::istringstream iss(line);
           std::string key;
@@ -253,11 +259,18 @@ void Game::LoadSave(const std::string& filename){
                   iss >> PlayerP.hp;                        // set hp from file to current hp
                } else if (key == "Sanity:") {
                   iss >> PlayerP.sanity;                    // set sanity from file to current sanity
-               } else if (key == "Scene:")
-                  iss >> tempSceneid;
+               } else if (key == "Scene:") {
+                  iss >> tempSceneid;                       // get tempSceneid 
+               } else if (key == "CurrentEvents:"){
+                  std::string event;
+                  while (iss >> event) {
+                    Game::addCurrentEvent(event);           // Add each event to the Game
+                  }
+               }
           }
        }
-       Game::runGame(tempSceneid);
+       Game::setCurrentScene(tempSceneid);
+       Game::runGame(Game::currentScene->getId());
       //  std::cout << "Player data loaded from " << filename << std::endl;
       inFile.close(); // Close the file
    } else {
@@ -272,7 +285,11 @@ void Game::SaveFile(const std::string& filename) {
       outFile << "HP: " << PlayerP.hp << "/" << PlayerP.hpmax << std::endl;
       outFile << "Sanity: " << PlayerP.sanity << "/" << PlayerP.sanity_max << std::endl;
       outFile << "Scene: " << Game::currentScene->id << std::endl;
-      std::cout << "Player data saved to " << filename << std::endl;
+      outFile << "CurrentEvents: ";
+      for (const auto& event : Game::currentEvents) {
+        outFile << event << ' ';
+      }
+      std::cout << "\nPlayer data saved to " << filename << std::endl;
       outFile.close(); // Close the file
     } else {
       std::cerr << "Unable to open file: " << filename << std::endl;
@@ -286,6 +303,7 @@ void Game::ResetSaveFile(const std::string& filename){
       outFile << "HP: " << 100 << "/" << PlayerP.hpmax << std::endl;
       outFile << "Sanity: " << 100 << "/" << PlayerP.sanity_max << std::endl;
       outFile << "Scene: " << "begin" << std::endl;
+      outFile << "CurrentEvents: "<< std::endl;
       //  std::cout << "Did Reset data to " << filename << std::endl;
       outFile.close(); // Close the file
     } else {
