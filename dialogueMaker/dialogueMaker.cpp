@@ -246,6 +246,7 @@ void Game::LoadSave(const std::string& filename){
   if (inFile.is_open()) {
       std::string line;
       std::string tempSceneid;
+      std::string tempEvent;
       while (std::getline(inFile, line)) {
           std::istringstream iss(line);
           std::string key;
@@ -254,11 +255,18 @@ void Game::LoadSave(const std::string& filename){
                   iss >> PlayerP.hp;                        // set hp from file to current hp
                } else if (key == "Sanity:") {
                   iss >> PlayerP.sanity;                    // set sanity from file to current sanity
-               } else if (key == "Scene:")
-                  iss >> tempSceneid;
+               } else if (key == "Scene:") {
+                  iss >> tempSceneid;                       // get tempSceneid 
+               } else if (key == "CurrentEvents:"){
+                  std::string event;
+                  while (iss >> event) {
+                    Game::addCurrentEvent(event);           // Add each event to the Game
+                  }
+               }
           }
        }
-       Game::runGame(tempSceneid);
+       Game::setCurrentScene(tempSceneid);
+       Game::runGame(Game::currentScene->getId());
       //  std::cout << "Player data loaded from " << filename << std::endl;
       inFile.close(); // Close the file
    } else {
@@ -273,7 +281,11 @@ void Game::SaveFile(const std::string& filename) {
       outFile << "HP: " << PlayerP.hp << "/" << PlayerP.hpmax << std::endl;
       outFile << "Sanity: " << PlayerP.sanity << "/" << PlayerP.sanity_max << std::endl;
       outFile << "Scene: " << Game::currentScene->id << std::endl;
-      std::cout << "Player data saved to " << filename << std::endl;
+      outFile << "CurrentEvents: ";
+      for (const auto& event : Game::currentEvents) {
+        outFile << event << ' ';
+      }
+      std::cout << "\nPlayer data saved to " << filename << std::endl;
       outFile.close(); // Close the file
     } else {
       std::cerr << "Unable to open file: " << filename << std::endl;
@@ -287,9 +299,11 @@ void Game::ResetSaveFile(const std::string& filename){
       outFile << "HP: " << 100 << "/" << PlayerP.hpmax << std::endl;
       outFile << "Sanity: " << 100 << "/" << PlayerP.sanity_max << std::endl;
       outFile << "Scene: " << "begin" << std::endl;
+      outFile << "CurrentEvents: "<< std::endl;
       //  std::cout << "Did Reset data to " << filename << std::endl;
       outFile.close(); // Close the file
     } else {
       std::cerr << "Unable to open file: " << filename << std::endl;
-  }  
+    }  
 }
+
