@@ -134,6 +134,7 @@ void Game::askForChoice() {
 
     if (choiceInt > 0 && choiceInt <= Game::currentScene->getNumOptions()) {
       std::pair<std::string, std::string> nextScene = Game::currentScene->chooseOption(choiceInt);
+      Playsound::playsoundef(Game::currentScene->options[choiceInt-1].statchange);
       PlayerP.changestat(Game::currentScene->options[choiceInt-1].statchange);
       std::string nextSceneId = nextScene.first;
       std::string event = nextScene.second;
@@ -308,8 +309,6 @@ void Game::ResetSaveFile(const std::string& filename){
       outFile.close(); // Close the file
     } else {
       std::cerr << "Unable to open file: " << filename << std::endl;
-  }  
+    }  
 }
-
-
 
