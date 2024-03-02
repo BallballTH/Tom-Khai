@@ -11,8 +11,8 @@
 struct Option {
   std::string text;
   std::string sceneId;
-  std::string event;
   std::string statchange;
+  std::string event;
 };
 
 class Scene {
@@ -26,7 +26,7 @@ class Scene {
 
   void printScene(); 
 
-  void addOption(std::string text, std::string nextSceneId, std::string event, std::string statchange);
+  void addOption(std::string text, std::string nextSceneId, std::string statchange, std::string event);
 
   void addEvent(std::string event);
 

@@ -28,12 +28,12 @@ void Scene::printScene() {
   std::cout << "\n";
 }
 
-void Scene::addOption(std::string text, std::string nextSceneId, std::string event, std::string statchange) {
+void Scene::addOption(std::string text, std::string nextSceneId, std::string statchange, std::string event) {
   Option option;
   option.text = text;
   option.sceneId = nextSceneId;
-  option.event = event;
   option.statchange = statchange;
+  option.event = event;
   options.push_back(option);
 }
 
@@ -79,7 +79,7 @@ void Game::addOption(std::string sceneId, std::vector<Option> options) {
   checkIfSceneExists(sceneId);
   for (int i = 0; i < options.size(); i++) {
     checkIfSceneExists(options[i].sceneId);
-    Game::scenes[sceneId]->addOption(parseText(options[i].text), options[i].sceneId, options[i].event, options[i].statchange);
+    Game::scenes[sceneId]->addOption(parseText(options[i].text), options[i].sceneId, options[i].statchange, options[i].event);
   }
 }
 
@@ -156,12 +156,17 @@ void Game::cleanUp() {
 }
 
 bool Game::gameEnded() {
+  if (PlayerP.CheckIfdied()) {
+    setCurrentScene("bad_ending");      // Change to the "die" scene
+    printCurrentScene();                // Print the "die" scene
+    Game::ResetSaveFile("save.txt");
+    cleanUp();
+    return true;
+  }
+  
   if (Game::currentScene->getIsEndScene()) {
-    PlayerP.hp = 0;
-    PlayerP.sanity = 0;
     Game::printCurrentScene();
     Game::ResetSaveFile("save.txt");
-    
     cleanUp();
     return true;
   }
@@ -180,6 +185,7 @@ void Game::runGame(std::string startSceneId) {
   while (!gameEnded()) { 
     printCurrentScene();
     askForChoice();
+    // Check if player's HP or SA is 0
   }
 }
 
