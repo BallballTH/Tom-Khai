@@ -2,6 +2,7 @@
 
 
 int main() {
+  Playsound::playsoundbg("begin");
   player kaitom;
   Game::addPlayer(kaitom);
 
@@ -61,4 +62,5 @@ int main() {
   // Game loop
   Game::LoadSave("save.txt");
 }
+
 
