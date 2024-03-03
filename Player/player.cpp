@@ -63,32 +63,44 @@ void player::printstats(){
         std::cout << char(bar2);
     }
 
-    std::cout<<"\n------------------------------------------------------------------------------------------------------------------------------------------";
+    std::cout<<"\n------------------------------------------------------------------------------------------------------------------------------------------\n";
 }
 
-void player::changestat(std::string change) {
-    char text[50];;
+void player::changestat(const std::string& change) {
+    char text[50];
     double amount;
     char operation;
 
-    sscanf(change.c_str(), "%s %c %lf", text, &operation, &amount);
+    sscanf(change.c_str(), "%[^-+ ] %c %lf", text, &operation, &amount);
     std::string stat = text;
     // Check the operation
-    if (operation == '-') {
-        // Decrease the stat
+    if (operation == '-') {               // Decrease the stat
         if (stat == "hp") {
             hp -= amount;
+            if(hp<0) hp = 0;
+            
         } else if (stat == "sa") {
             sanity -= amount;
+            if(sanity<0) sanity = 0;
         }
-    } else if (operation == '+') {
-        // Increase the stat
+
+        
+    } else if (operation == '+') {        // Increase the stat
         if (stat == "hp") {
             hp += amount;
+            if(hp>hpmax) hp = hpmax;
+
         } else if (stat == "sa") {
             sanity += amount;
+            if(sanity>sanity_max) sanity = sanity_max;
         }
     }
 }
 
+
+bool player::CheckIfdied(){
+    if(hp == 0 || sanity == 0){
+        return true;
+    }else return false;
+}
 
