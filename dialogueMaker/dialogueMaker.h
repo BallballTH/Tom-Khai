@@ -1,16 +1,19 @@
+#pragma once
+
 #include "../Player/player.h"
-#include "../Player/player.h"
+#include "../Sound/sound.h"
 #include <map>
 #include <vector>
 #include <string>
 #include <set>
-
+#include <fstream>      // for file streams
+#include <sstream>      // for string stream
 
 struct Option {
   std::string text;
   std::string sceneId;
-  std::string event;
   std::string statchange;
+  std::string event;
 };
 
 class Scene {
@@ -26,7 +29,7 @@ class Scene {
 
   void printScene(); 
 
-  void addOption(std::string text, std::string nextSceneId, std::string event, std::string statchange);
+  void addOption(std::string text, std::string nextSceneId, std::string statchange,std::string event);
 
   void addEvent(std::string event);
 
@@ -46,10 +49,19 @@ class Scene {
   bool hasEvent(std::string event);
 
   friend class Game;
+
+  // Map to store ASCII art for each scene
+  static std::map<std::string, std::string> sceneASCII;
+
+  // Add a method to retrieve ASCII art for a scene
+  static std::string getSceneASCII(std::string sceneId);
+  public:
+  // Add a method to set ASCII art for a scene
+  static void setSceneASCII(std::string sceneId, std::string ascii);
 };
 
 class Game {
-  static inline player Player;
+  static inline player PlayerP;
   static inline std::map<std::string, Scene*> scenes;
   static inline Scene* currentScene;
   static inline std::set<std::string> currentEvents;
@@ -64,11 +76,19 @@ class Game {
   static void printCurrentScene();
   static std::string parseText(std::string text);
   static void addCurrentEvent(std::string event);
-  static void addCurrentEvent(std::string event);
+
+  friend class Playsound;
 
   public:
+    static void SaveFile(const std::string& filename);
+
+    static void LoadSave(const std::string& filename);
+
+    static void ResetSaveFile(const std::string& filename);
 
     static void printstats();
+
+    static void addPlayer(player p);
 
     static void addScene(std::string id, std::string dialogue, bool isEndScene=false);
 
@@ -81,7 +101,5 @@ class Game {
     static void printAllScenes();
 
     static void runGame(std::string startSceneId);
-
-    static void addPlayer(player p);
 };
 

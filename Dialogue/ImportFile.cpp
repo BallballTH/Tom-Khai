@@ -13,7 +13,7 @@ void importScenesFromFile(const std::string& filename) {
         bool isEndScene = (isEndSceneStr == "true");
 
         // Debugging output
-        std::cout << "Scene ID: " << sceneId << ", Dialogue: " << dialogue << ", Is End Scene: " << isEndScene << std::endl;
+        //std::cout << "Scene ID: " << sceneId << ", Dialogue: " << dialogue << ", Is End Scene: " << isEndScene << std::endl;
 
         Game::addScene(sceneId, dialogue, isEndScene);
     }
@@ -30,7 +30,7 @@ void importEventsFromFile(const std::string& filename) {
         std::getline(iss, event);
 
         // Debugging output
-        std::cout << "Scene ID: " << sceneId << ", Event: " << event << std::endl;
+        // std::cout << "Scene ID: " << sceneId << ", Event: " << event << std::endl;
 
         Game::addEvent(sceneId, event);
     }
@@ -44,11 +44,12 @@ void importOptionsFromFile(const std::string& filename) {
     std::string line;
     while (std::getline(file, line) && !line.empty()) {
         std::istringstream iss(line);
-        std::string sceneId, text, nextSceneId, event;
+        std::string sceneId, text, nextSceneId, statchange, event;
         std::getline(iss, sceneId, '|');
         std::getline(iss, text, '|');
         std::getline(iss, nextSceneId, '|');
-        std::getline(iss, event);
+        std::getline(iss, statchange,'|');
+        std::getline(iss, event,'|');
         // Add option to the scene
         Game::addOption(sceneId, {{text, nextSceneId, event}});
     }
