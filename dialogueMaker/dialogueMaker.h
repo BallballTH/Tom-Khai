@@ -25,7 +25,7 @@ class Scene {
 
   Scene(std::string id, std::string dialogue, bool isEndScene=false);
 
-  void Scene::printCharToTerminalWidth(char ch);
+  void printCharToTerminalWidth(char ch);
 
   void printScene(); 
 

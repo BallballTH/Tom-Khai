@@ -1,4 +1,4 @@
-HP: 70/100
+HP: 100/100
 Sanity: 100/100
-Scene: 1-1
+Scene: 6-1
 CurrentEvents: 
