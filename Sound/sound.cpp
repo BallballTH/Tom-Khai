@@ -2,7 +2,7 @@
 #include <iostream>
 
 void Playsound::playsoundbg(const std::string& sceneId) {
-    if (sceneId == "begin") {                                                   // game start
+    if (sceneId == "prologue") {                                                   // game start
         Playsound::StopPlay();
         mciSendString("play Sound/sounds/musicbg.wav", NULL, 0, NULL);  
     }

@@ -9,6 +9,7 @@ Scene::Scene(std::string id, std::string dialogue, bool isEndScene) {
 
 void Scene::printScene() {
   // Print ASCII art for the scene
+  
   std::string asciiArt = getSceneASCII(id);
   if (!asciiArt.empty()) {
         std::cout << asciiArt << std::endl;
@@ -185,7 +186,7 @@ void Game::cleanUp() {
 
 bool Game::gameEnded() {
   if (PlayerP.CheckIfdied()) {
-    setCurrentScene("bad_ending");      // Change to the "die" scene
+    setCurrentScene("ending_you_die");      // Change to the "die" scene
     printCurrentScene();                // Print the "die" scene
     Game::ResetSaveFile("save.txt");
     cleanUp();
@@ -208,10 +209,11 @@ void Game::printAllScenes() {
 }
 
 void Game::runGame(std::string startSceneId) {
+  Playsound::playsoundbg("prologue");
   checkIfSceneExists(startSceneId);
   start(startSceneId);
-  Playsound::playsoundbg(startSceneId);
-  while (!gameEnded()) { 
+  while (!gameEnded()) {
+    Playsound::playsoundbg(Game::currentScene->id);
     printCurrentScene();
     askForChoice();
     // Check if player's HP or SA is 0
@@ -329,11 +331,14 @@ void Game::SaveFile(const std::string& filename) {
 
 void Game::ResetSaveFile(const std::string& filename){
   std::ofstream outFile(filename);                     // Open the file for writing
+  Game::currentEvents.clear();
+  PlayerP.hp = 100;
+  PlayerP.sanity = 100;
   if (outFile.is_open()) {
         // Write player stats to the file
-      outFile << "HP: " << 100 << "/" << PlayerP.hpmax << std::endl;
-      outFile << "Sanity: " << 100 << "/" << PlayerP.sanity_max << std::endl;
-      outFile << "Scene: " << "begin" << std::endl;
+      outFile << "HP: " << PlayerP.hp << "/" << PlayerP.hpmax << std::endl;
+      outFile << "Sanity: " << PlayerP.sanity << "/" << PlayerP.sanity_max << std::endl;
+      outFile << "Scene: " << "prologue" << std::endl;
       outFile << "CurrentEvents: "<< std::endl;
       //  std::cout << "Did Reset data to " << filename << std::endl;
       outFile.close(); // Close the file
