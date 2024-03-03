@@ -210,6 +210,7 @@ void Game::printAllScenes() {
 void Game::runGame(std::string startSceneId) {
   checkIfSceneExists(startSceneId);
   start(startSceneId);
+  Playsound::playsoundbg(startSceneId);
   while (!gameEnded()) { 
     printCurrentScene();
     askForChoice();
