@@ -21,7 +21,7 @@ void Playsound::playsoundef(const std::string& statchange){
     char text[50];
     double amount;
     char operation;
-    sscanf(statchange.c_str(), "%s %c %lf", text, &operation, &amount);
+    sscanf(statchange.c_str(), "%[^-+] %c %lf", text, &operation, &amount);
     std::string stat = text;
     
     if (operation == '-') {               
