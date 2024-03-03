@@ -49,9 +49,9 @@ void importOptionsFromFile(const std::string& filename) {
         std::getline(iss, text, '|');
         std::getline(iss, nextSceneId, '|');
         std::getline(iss, statchange,'|');
-        std::getline(iss, event,'|');
+        std::getline(iss, event);
         // Add option to the scene
-        Game::addOption(sceneId, {{text, nextSceneId, event}});
+        Game::addOption(sceneId, {{text, nextSceneId,statchange,event}});
     }
 
     file.close();
