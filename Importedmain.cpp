@@ -8,8 +8,6 @@ int main() {
   importOptionsFromFile("Dialogue/Options.txt");
   SetASCII();
 
-  Playsound::playsoundbg("begin");
-  Playsound::StopPlay();
   // Game loop
   Game::LoadSave("save.txt");
 }
