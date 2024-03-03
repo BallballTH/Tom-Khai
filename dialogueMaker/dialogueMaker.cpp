@@ -2,7 +2,6 @@
 #include "dialogueMaker.h"
 
 Scene::Scene(std::string id, std::string dialogue, bool isEndScene) {
-Scene::Scene(std::string id, std::string dialogue, bool isEndScene) {
   this->id = id;
   this->dialogue = dialogue;
   this->isEndScene = isEndScene;
