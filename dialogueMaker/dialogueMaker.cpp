@@ -131,7 +131,7 @@ void Game::askForChoice() {
   while (1) {
     std::string choice;
     std::string x = "Enter Your Choice: (q to quit game) (res to restart)";
-    Sleep(10);                                                            //to prevent "E" being shift up
+    Sleep(20);                                                            //to prevent "E" being shift up
     for (int i = 0; i < x.size(); i++)
     {
       std::cout << x[i];
