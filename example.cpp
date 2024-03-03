@@ -25,7 +25,7 @@ int main() {
   Game::addEvent("6", "6event_1");
 
   // Add options to scenes
-  Game::addOption("begin", {{"Go left", "2", "hp-10","5event_1"}, {"Go right", "3",}, {"Go straight", "4","hp-20","passedbegin"}});
+  Game::addOption("begin", {{"Go left", "2", "hp-10","5event_1"}, {"Go right", "3",}, {"Go straight", "4","hp-20","passedbegin 6event_1"}});
 
   Game::addOption("2", {
     {"Run", "begin"},
