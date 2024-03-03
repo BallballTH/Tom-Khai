@@ -34,8 +34,10 @@ void Scene::printScene() {
   //   Sleep(1);
   // }
   // std::cout << '\n';
+  Sleep(5);
   printCharToTerminalWidth('-');
   std::cout << "\n\n";
+  Sleep(5);
   Game::printstats();
   std::cout << "\n\n";
   printCharToTerminalWidth('-');
