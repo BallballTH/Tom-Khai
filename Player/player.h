@@ -1,10 +1,10 @@
 
 #include <iostream>
 #include <windows.h>    // for SetConsoleCursorPosition
-#include <fstream>      // for file streams
 #include <string>       // for string manipulation
-#include <sstream>      // for string stream
-#include <vector>       // for storing lines of file
+#include <fcntl.h>      // for show Unicode on stream (file control in "setmode")
+#include <io.h>         // for show Unicode on stream (setmode)
+
 
 class player{
         double hp = 100;
@@ -19,7 +19,7 @@ class player{
 };
 
 void movecursor(int,int);
-int currentcursor(char);
+int  currentcursor(char);
 
 
 
