@@ -15,16 +15,16 @@ void Scene::printScene() {
         std::cout << asciiArt << std::endl;
   }
   std::cout << "---------------------------------------------------------------------------------------------------------------------------";
-  //std::cout << '\n' << dialogue << '\n';
-  std::cout << '\n';
-  for (int i = 0; i < dialogue.size(); i++)
-  {
-    std::cout << dialogue[i];
-    Sleep(1);
-  }
-  std::cout << '\n';
-  std::cout << "---------------------------------------------------------------------------------------------------------------------------";
-  std::cout << '\n';
+  std::cout << '\n' << dialogue << '\n';
+  // std::cout << '\n';
+  // for (int i = 0; i < dialogue.size(); i++)
+  // {
+  //   std::cout << dialogue[i];
+  //   Sleep(1);
+  // }
+  // std::cout << '\n';
+  // std::cout << "---------------------------------------------------------------------------------------------------------------------------";
+  // std::cout << '\n';
   Game::printstats();
   if (options.size() > 0) {
     std::cout << "\n\n";
@@ -145,15 +145,20 @@ void Game::addCurrentEvent(std::string event) {
 void Game::askForChoice() {
   while (1) {
     std::string choice;
-    std::string x = "Enter Your Choice: (q to quit game): ";
-    Sleep(1);                                                            //to prevent "E" being shift up
-    for (int i = 0; i < x[i]; i++)
+    std::string x = "Enter Your Choice: (q to quit game) (res to restart): ";
+    Sleep(10);                                                            //to prevent "E" being shift up
+    for (int i = 0; i < x.size(); i++)
     {
       std::cout << x[i];
       Sleep(15);
     }
     
     std::cin >> choice;
+
+    if (choice == "res") {
+      Game::ResetSaveFile("Save.txt");
+      Game::LoadSave("Save.txt");
+    }
 
     if (choice == "q") {
       std::cout << "Thanks for playing!\n";
