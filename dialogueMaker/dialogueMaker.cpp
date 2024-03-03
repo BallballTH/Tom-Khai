@@ -14,6 +14,7 @@ void Scene::printScene() {
   if (!asciiArt.empty()) {
         std::cout << asciiArt << std::endl;
   }
+
   std::cout << "---------------------------------------------------------------------------------------------------------------------------";
   std::cout << '\n' << dialogue << '\n';
   // std::cout << '\n';
@@ -286,6 +287,7 @@ void Game::addPlayer(player p){
 void Game::printstats(){
   PlayerP.printstats();
 }
+
 
 void Game::LoadSave(const std::string& filename){
   std::ifstream inFile(filename);                   // Open the file for reading
