@@ -200,7 +200,7 @@ std::string Game::parseText(std::string text) {
     {"r", "\033[31m"}, // Red
     {"g", "\033[32m"}, // Green
     {"y", "\033[33m"}, // Yellow
-    {"random", "\033[38;2;69;211;76m"}, // rgb(69, 211, 76)
+    {"random", "\033[38;2;69;211;76m"}, // rgb(69, 211, 76) //green
   };
   std::vector<std::string> tags;
   std::string parsedText = "";
