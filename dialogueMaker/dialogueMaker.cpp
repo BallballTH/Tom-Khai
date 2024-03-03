@@ -10,9 +10,9 @@ Scene::Scene(std::string id, std::string dialogue, bool isEndScene) {
 void Scene::printCharToTerminalWidth(char ch) {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-    
+
     int terminal_width = csbi.dwSize.X;
-    
+
     for (int i = 0; i < terminal_width; ++i) {
         std::cout << ch;
     }
@@ -109,11 +109,6 @@ void Game::addEvent(std::string sceneId, std::string event) {
   Game::scenes[sceneId]->addEvent(event);
 }
 
-void Game::addEvent(std::string sceneId, std::string event) {
-  checkIfSceneExists(sceneId);
-  Game::scenes[sceneId]->addEvent(event);
-}
-
 void Game::addOption(std::string sceneId, std::vector<Option> options) {
   checkIfSceneExists(sceneId);
   for (int i = 0; i < options.size(); i++) {
@@ -133,20 +128,11 @@ void Game::setCurrentScene(std::string id) {
       Game::currentScene = Game::scenes[*it];
     }
   }
-  for (auto it = Game::currentEvents.begin(); it != Game::currentEvents.end(); it++) {
-    if (Game::currentScene->hasEvent(*it)) {
-      Game::currentScene = Game::scenes[*it];
-    }
-  }
 }
 
 void Game::printCurrentScene() {
   std::cout << "\033[2J\033[1;1H";
   Game::currentScene->printScene();
-}
-
-void Game::addCurrentEvent(std::string event) {
-  currentEvents.insert(event);
 }
 
 void Game::addCurrentEvent(std::string event) {
@@ -380,4 +366,3 @@ void Game::ResetSaveFile(const std::string& filename){
       std::cerr << "Unable to open file: " << filename << std::endl;
     }  
 }
-

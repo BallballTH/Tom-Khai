@@ -22,20 +22,17 @@ class Scene {
   bool isEndScene;
   std::vector<Option> options;
   std::set<std::string> events;
-  std::set<std::string> events;
 
-  Scene(std::string id, std::string dialogue, bool isEndScene=false);
   Scene(std::string id, std::string dialogue, bool isEndScene=false);
 
   void Scene::printCharToTerminalWidth(char ch);
-  
+
   void printScene(); 
 
   void addOption(std::string text, std::string nextSceneId, std::string statchange,std::string event);
 
   void addEvent(std::string event);
 
-  std::pair<std::string, std::string> chooseOption(int choice);
   std::pair<std::string, std::string> chooseOption(int choice);
 
   std::string getId();
@@ -45,8 +42,6 @@ class Scene {
   int getNumOptions();
 
   bool getIsEndScene();
-
-  bool hasEvent(std::string event);
 
   bool hasEvent(std::string event);
 
@@ -66,7 +61,6 @@ class Game {
   static inline player PlayerP;
   static inline std::map<std::string, Scene*> scenes;
   static inline Scene* currentScene;
-  static inline std::set<std::string> currentEvents;
   static inline std::set<std::string> currentEvents;
 
   static void setCurrentScene(std::string id);
@@ -96,12 +90,9 @@ class Game {
 
     static void addEvent(std::string sceneId, std::string event);
 
-    static void addEvent(std::string sceneId, std::string event);
-
     static void addOption(std::string sceneId, std::vector<Option> options);
 
     static void printAllScenes();
 
     static void runGame(std::string startSceneId);
 };
-
