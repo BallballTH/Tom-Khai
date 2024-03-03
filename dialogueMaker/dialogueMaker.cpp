@@ -8,17 +8,23 @@ Scene::Scene(std::string id, std::string dialogue, bool isEndScene) {
 }
 
 void Scene::printScene() {
-  /*for (int i = 0; i < sceneLength; i++) {
-    std::cout << "-";
-  }*/
-  std::cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
-  std::cout << '\n' << dialogue << '\n';
-  std::cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
+  // Print ASCII art for the scene
+  std::string asciiArt = getSceneASCII(id);
+  if (!asciiArt.empty()) {
+        std::cout << asciiArt << std::endl;
+  }
+  std::cout << "---------------------------------------------------------------------------------------------------------------------------";
+  //std::cout << '\n' << dialogue << '\n';
+  std::cout << '\n';
+  for (int i = 0; i < dialogue.size(); i++)
+  {
+    std::cout << dialogue[i];
+    Sleep(1);
+  }
+  std::cout << '\n';
+  std::cout << "---------------------------------------------------------------------------------------------------------------------------";
   std::cout << '\n';
   Game::printstats();
-  /*for (int i = 0; i < sceneLength; i++) {
-    std::cout << "-";
-  }*/
   if (options.size() > 0) {
     std::cout << "\n\n";
   }
@@ -63,6 +69,22 @@ bool Scene::getIsEndScene() {
 
 bool Scene::hasEvent(std::string event) {
   return events.find(event) != events.end();
+}
+
+// Define static member variables
+std::map<std::string, std::string> Scene::sceneASCII;
+
+// Define static method to set ASCII art for a scene
+void Scene::setSceneASCII(std::string sceneId, std::string ascii) {
+    sceneASCII[sceneId] = ascii;
+}
+
+// Define static method to retrieve ASCII art for a scene
+std::string Scene::getSceneASCII(std::string sceneId) {
+    if (sceneASCII.find(sceneId) != sceneASCII.end()) {
+        return sceneASCII[sceneId];
+    }
+    return ""; // Return empty string if ASCII art not found
 }
 
 void Game::addScene(std::string id, std::string dialogue, bool isEndScene) {
