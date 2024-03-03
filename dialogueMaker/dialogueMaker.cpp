@@ -26,14 +26,14 @@ void Scene::printScene() {
         std::cout << asciiArt << std::endl;
   }
   printCharToTerminalWidth('-');
-  std::cout << "\n\n" << dialogue << "\n\n";
-  // std::cout << '\n';
-  // for (int i = 0; i < dialogue.size(); i++)
-  // {
-  //   std::cout << dialogue[i];
-  //   Sleep(1);
-  // }
-  // std::cout << '\n';
+  // std::cout << "\n\n" << dialogue << "\n\n";
+  std::cout << "\n\n";
+  for (int i = 0; i < dialogue.size(); i++)
+  {
+    std::cout << dialogue[i];
+    Sleep(1);
+  }
+  std::cout << "\n\n";
   Sleep(5);
   printCharToTerminalWidth('-');
   std::cout << "\n\n";
