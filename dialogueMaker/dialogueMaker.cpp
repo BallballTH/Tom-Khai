@@ -9,21 +9,22 @@ Scene::Scene(std::string id, std::string dialogue, bool isEndScene) {
 
 void Scene::printScene() {
   // Print ASCII art for the scene
+  
   std::string asciiArt = getSceneASCII(id);
   if (!asciiArt.empty()) {
         std::cout << asciiArt << std::endl;
   }
   std::cout << "---------------------------------------------------------------------------------------------------------------------------";
-  std::cout << '\n' << dialogue << '\n';
-  // std::cout << '\n';
-  // for (int i = 0; i < dialogue.size(); i++)
-  // {
-  //   std::cout << dialogue[i];
-  //   Sleep(1);
-  // }
-  // std::cout << '\n';
-  // std::cout << "---------------------------------------------------------------------------------------------------------------------------";
-  // std::cout << '\n';
+  //std::cout << '\n' << dialogue << '\n';
+  std::cout << '\n';
+  for (int i = 0; i < dialogue.size(); i++)
+  {
+    std::cout << dialogue[i];
+    Sleep(1);
+  }
+  std::cout << '\n';
+  std::cout << "---------------------------------------------------------------------------------------------------------------------------";
+  std::cout << '\n';
   Game::printstats();
   if (options.size() > 0) {
     std::cout << "\n\n";
@@ -34,7 +35,7 @@ void Scene::printScene() {
   std::cout << "\n";
 }
 
-void Scene::addOption(std::string text, std::string nextSceneId, std::string statchange,std::string event) {
+void Scene::addOption(std::string text, std::string nextSceneId, std::string statchange, std::string event) {
   Option option;
   option.text = text;
   option.sceneId = nextSceneId;
@@ -48,7 +49,7 @@ void Scene::addEvent(std::string event) {
 }
 
 std::pair<std::string, std::string> Scene::chooseOption(int choice) {
-  return {options[choice-1].sceneId,options[choice-1].event};
+  return {options[choice-1].sceneId, options[choice-1].event};
 }
 
 std::string Scene::getId() {
@@ -144,9 +145,9 @@ void Game::addCurrentEvent(std::string event) {
 void Game::askForChoice() {
   while (1) {
     std::string choice;
-    std::string x = "Enter Your Choice: (q to quit game) (res to restart)";
-    Sleep(10);                                                            //to prevent "E" being shift up
-    for (int i = 0; i < x.size(); i++)
+    std::string x = "Enter Your Choice: (q to quit game): ";
+    Sleep(1);                                                            //to prevent "E" being shift up
+    for (int i = 0; i < x[i]; i++)
     {
       std::cout << x[i];
       Sleep(15);
@@ -159,11 +160,6 @@ void Game::askForChoice() {
       Game::SaveFile("Save.txt");
       cleanUp();
       exit(0);
-    }
-
-    if (choice == "res") {
-      Game::ResetSaveFile("Save.txt");
-      Game::LoadSave("Save.txt");
     }
 
     int choiceInt;
@@ -199,7 +195,7 @@ void Game::cleanUp() {
 
 bool Game::gameEnded() {
   if (PlayerP.CheckIfdied()) {
-    setCurrentScene("bad_ending");      // Change to the "die" scene
+    setCurrentScene("ending_you_die");      // Change to the "die" scene
     printCurrentScene();                // Print the "die" scene
     Game::ResetSaveFile("save.txt");
     cleanUp();
@@ -222,9 +218,11 @@ void Game::printAllScenes() {
 }
 
 void Game::runGame(std::string startSceneId) {
+  Playsound::playsoundbg("prologue");
   checkIfSceneExists(startSceneId);
   start(startSceneId);
-  while (!gameEnded()) { 
+  while (!gameEnded()) {
+    Playsound::playsoundbg(Game::currentScene->id);
     printCurrentScene();
     askForChoice();
     // Check if player's HP or SA is 0
@@ -243,11 +241,19 @@ std::string Game::parseText(std::string text) {
   std::map<std::string, std::string> decorations = {
     {"b", "\033[1m"}, // Bold
     {"ul", "\033[4m"}, // Underline
-    {"r", "\033[31m"}, // Red
-    {"g", "\033[32m"}, // Green
+    {"br", "\033[38;2;57;21;0m"}, // brown
+    {"bl", "\033[38;2;17;85;204m"}, // blue
+    {"bla", "\033[38;2;.0;0;0m"}, // black
+    {"g", "\033[32m"}, // Green 
+    {"dbl", "\033[38;2;25;51;102m"}, // dark blue
+    {"dg", "\033[38;2;39;78;19m"}, // dark green
+    {"dy", "\033[38;2;191;144;0m"}, // dark yellow
+    {"o", "\033[38;2;252;119;53m"}, // orange
+    {"p", "\033[38;2;252;119;53m"}, // purple
+    {"pbl", "\033[38;2;0;0;255m"}, // purple mixed with blue
+    {"r", "\033[38;2;255;0;0m"}, // Red
     {"y", "\033[33m"}, // Yellow
     {"random", "\033[38;2;69;211;76m"}, // rgb(69, 211, 76)
-    {"gb", "\033[38;2;66;123;85m"}, // rgb(69, 211, 76)
   };
   std::vector<std::string> tags;
   std::string parsedText = "";
@@ -307,8 +313,9 @@ void Game::LoadSave(const std::string& filename){
                } else if (key == "Scene:") {
                   iss >> tempSceneid;                       // get tempSceneid 
                } else if (key == "CurrentEvents:"){
-                  while (iss >> tempEvent) {
-                    Game::addCurrentEvent(tempEvent);           // Add each event to the Game
+                  std::string event;
+                  while (iss >> event) {
+                    Game::addCurrentEvent(event);           // Add each event to the Game
                   }
                }
           }
@@ -342,11 +349,14 @@ void Game::SaveFile(const std::string& filename) {
 
 void Game::ResetSaveFile(const std::string& filename){
   std::ofstream outFile(filename);                     // Open the file for writing
+  Game::currentEvents.clear();
+  PlayerP.hp = 100;
+  PlayerP.sanity = 100;
   if (outFile.is_open()) {
         // Write player stats to the file
-      outFile << "HP: " << 100 << "/" << PlayerP.hpmax << std::endl;
-      outFile << "Sanity: " << 100 << "/" << PlayerP.sanity_max << std::endl;
-      outFile << "Scene: " << "begin" << std::endl;
+      outFile << "HP: " << PlayerP.hp << "/" << PlayerP.hpmax << std::endl;
+      outFile << "Sanity: " << PlayerP.sanity << "/" << PlayerP.sanity_max << std::endl;
+      outFile << "Scene: " << "prologue" << std::endl;
       outFile << "CurrentEvents: "<< std::endl;
       //  std::cout << "Did Reset data to " << filename << std::endl;
       outFile.close(); // Close the file
