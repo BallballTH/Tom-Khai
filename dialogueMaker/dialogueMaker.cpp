@@ -7,6 +7,17 @@ Scene::Scene(std::string id, std::string dialogue, bool isEndScene) {
   this->isEndScene = isEndScene;
 }
 
+void Scene::printCharToTerminalWidth(char ch) {
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+
+    int terminal_width = csbi.dwSize.X;
+
+    for (int i = 0; i < terminal_width; ++i) {
+        std::cout << ch;
+    }
+}
+
 void Scene::printScene() {
   // Print ASCII art for the scene
   
@@ -14,7 +25,7 @@ void Scene::printScene() {
   if (!asciiArt.empty()) {
         std::cout << asciiArt << std::endl;
   }
-  std::cout << "---------------------------------------------------------------------------------------------------------------------------";
+  printCharToTerminalWidth('-');
   std::cout << '\n' << dialogue << '\n';
   // std::cout << '\n';
   // for (int i = 0; i < dialogue.size(); i++)
@@ -23,7 +34,7 @@ void Scene::printScene() {
   //   Sleep(1);
   // }
   // std::cout << '\n';
-  // std::cout << "---------------------------------------------------------------------------------------------------------------------------";
+  printCharToTerminalWidth('-');
   // std::cout << '\n';
   Game::printstats();
   if (options.size() > 0) {
@@ -355,4 +366,3 @@ void Game::ResetSaveFile(const std::string& filename){
       std::cerr << "Unable to open file: " << filename << std::endl;
     }  
 }
-
