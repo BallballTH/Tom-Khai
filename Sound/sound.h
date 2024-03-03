@@ -8,7 +8,7 @@ class Playsound {
 public:
     void static playsoundbg(const std::string& sceneId);
     void static playsoundef(const std::string& statchange);
-    void static StopPlay();
+    void static StopPlay(const std::string& filename);
 };
 
 
