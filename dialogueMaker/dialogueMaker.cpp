@@ -163,6 +163,7 @@ void Game::askForChoice() {
       std::string event = nextScene.second;
       Game::setCurrentScene(nextSceneId);
       Game::addCurrentEvent(event);
+      break;
     } else {
       std::cout << "Invalid choice." << '\n';
     }
