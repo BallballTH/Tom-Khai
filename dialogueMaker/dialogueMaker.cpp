@@ -161,6 +161,7 @@ bool Game::gameEnded() {
     printCurrentScene();                // Print the "die" scene
     Game::ResetSaveFile("save.txt");
     cleanUp();
+    return true;
   }
   
   if (Game::currentScene->getIsEndScene()) {
