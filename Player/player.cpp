@@ -27,43 +27,42 @@ int currentcursor(char position){
     else return 0;
 }
 
-
-
 void player::printstats(){
     double percent_hp = hp/hpmax;
     double percent_sa = sanity/sanity_max;
-    int bar1 = 176; int bar2 = 219;
-    
-    SetConsoleCP(437);         // for bar text
-    SetConsoleOutputCP(43);
 
-    int tempX = currentcursor('x');      // Get Current position for pirnt Sanity bar
+    _setmode(_fileno(stdout),_O_U16TEXT);       // Set console output to UTF-16
+
+    int tempX = currentcursor('x');             // Get Current position for pirnt Sanity bar
 
     //printHP
+    std::wcout << "\n";
     movecursor(20);
-    std::cout << "HP: ";
+    std::wcout << L"HP: ";
     for(int i=0; i<20; i++){
-        std::cout << char(bar1);
+        std::wcout << L"\u2591";                    // \u2591,\u2588 are unicodes used for print HP and SA bar
     }
     movecursor(-20);
     for(int i=0; i<percent_hp*20; i++){
-        std::cout << char(bar2);
+        std::wcout << L"\u2588";
     }
 
-    std::cout<<"\r";                   // move cursor back to start
+    std::wcout<<"\r";                   // move cursor back to start
     //printSanity
 
     movecursor(tempX+50);
-    std::cout << "SA: ";
+    std::wcout << L"SA: ";
     for(int i=0; i<20; i++){
-        std::cout << char(bar1);
+        std::wcout << L"\u2591";
     }
     movecursor(-20);
     for(int i=0; i<percent_sa*20; i++){
-        std::cout << char(bar2);
+        std::wcout << L"\u2588";
     }
 
-    std::cout<<"\n------------------------------------------------------------------------------------------------------------------------------------------\n";
+    _setmode(_fileno(stdout), _O_TEXT);              // Set console output to default before its changed
+
+    std::cout<<"\n\n--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
 }
 
 void player::changestat(const std::string& change) {
@@ -71,7 +70,7 @@ void player::changestat(const std::string& change) {
     double amount;
     char operation;
 
-    sscanf(change.c_str(), "%[^-+ ] %c %lf", text, &operation, &amount);
+    sscanf(change.c_str(), "%[^-+] %c %lf", text, &operation, &amount);
     std::string stat = text;
     // Check the operation
     if (operation == '-') {               // Decrease the stat
@@ -103,4 +102,3 @@ bool player::CheckIfdied(){
         return true;
     }else return false;
 }
-

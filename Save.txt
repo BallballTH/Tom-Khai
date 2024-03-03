@@ -1,4 +1,4 @@
-HP: 100/100
-Sanity: 100/100
-Scene: begin
-CurrentEvents: 
+HP: 70/100
+Sanity: 90/100
+Scene: 5-1
+CurrentEvents: 5event_1 6event_1 passed4 passedbegin 

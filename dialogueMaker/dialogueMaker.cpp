@@ -109,6 +109,7 @@ void Game::askForChoice() {
   while (1) {
     std::string choice;
     std::string x = "Enter Your Choice: (q to quit game): ";
+    Sleep(1);                                                            //to prevent "E" being shift up
     for (int i = 0; i < x[i]; i++)
     {
       std::cout << x[i];
@@ -140,7 +141,6 @@ void Game::askForChoice() {
       std::string event = nextScene.second;
       Game::setCurrentScene(nextSceneId);
       Game::addCurrentEvent(event);
-      break;
     } else {
       std::cout << "Invalid choice." << '\n';
     }
@@ -156,6 +156,13 @@ void Game::cleanUp() {
 }
 
 bool Game::gameEnded() {
+  if (PlayerP.CheckIfdied()) {
+    setCurrentScene("bad_ending");      // Change to the "die" scene
+    printCurrentScene();                // Print the "die" scene
+    Game::ResetSaveFile("save.txt");
+    cleanUp();
+  }
+  
   if (Game::currentScene->getIsEndScene()) {
     Game::printCurrentScene();
     Game::ResetSaveFile("save.txt");
@@ -178,13 +185,6 @@ void Game::runGame(std::string startSceneId) {
     printCurrentScene();
     askForChoice();
     // Check if player's HP or SA is 0
-    if (PlayerP.CheckIfdied()) {
-      setCurrentScene("bad_ending");      // Change to the "die" scene
-      printCurrentScene();                // Print the "die" scene
-      Game::ResetSaveFile("save.txt");
-      cleanUp();
-      exit(0);
-    }
   }
 }
 
