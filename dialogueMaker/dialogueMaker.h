@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../Player/player.h"
 #include "../Sound/sound.h"
 #include <map>
@@ -6,7 +8,6 @@
 #include <set>
 #include <fstream>      // for file streams
 #include <sstream>      // for string stream
-
 
 struct Option {
   std::string text;
@@ -43,6 +44,15 @@ class Scene {
   bool hasEvent(std::string event);
 
   friend class Game;
+
+  // Map to store ASCII art for each scene
+  static std::map<std::string, std::string> sceneASCII;
+
+  // Add a method to retrieve ASCII art for a scene
+  static std::string getSceneASCII(std::string sceneId);
+  public:
+  // Add a method to set ASCII art for a scene
+  static void setSceneASCII(std::string sceneId, std::string ascii);
 };
 
 class Game {
