@@ -23,6 +23,6 @@ void Playsound::playsoundef(const std::string& statchange){
 }
 
 void Playsound::StopPlay() {
-    PlaySound(NULL, NULL, 0);
+    mciSendString("close all", NULL, 0, NULL);
 }
 

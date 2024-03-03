@@ -9,6 +9,7 @@ int main() {
   SetASCII();
 
   Playsound::playsoundbg("begin");
+  Playsound::StopPlay();
   // Game loop
   Game::LoadSave("save.txt");
 }
