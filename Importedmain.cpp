@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include "setSceneASCII.h"
 
 void importScenesFromFile(const std::string& filename) {
     std::ifstream file(filename);
@@ -65,6 +66,7 @@ int main() {
   importScenesFromFile("Dialogues.txt");
   importEventsFromFile("Events.txt");
   importOptionsFromFile("Options.txt");
+  setSceneASCII();
 
   // Game loop
   Game::runGame("begin");
