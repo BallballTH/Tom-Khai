@@ -27,7 +27,7 @@ class Scene {
 
   void printScene(); 
 
-  void addOption(std::string text, std::string nextSceneId, std::string statchange, std::string event);
+  void addOption(std::string text, std::string nextSceneId, std::string statchange,std::string event);
 
   void addEvent(std::string event);
 

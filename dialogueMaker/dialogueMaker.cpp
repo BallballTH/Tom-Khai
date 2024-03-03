@@ -14,16 +14,16 @@ void Scene::printScene() {
         std::cout << asciiArt << std::endl;
   }
   std::cout << "---------------------------------------------------------------------------------------------------------------------------";
-  //std::cout << '\n' << dialogue << '\n';
-  std::cout << '\n';
-  for (int i = 0; i < dialogue.size(); i++)
-  {
-    std::cout << dialogue[i];
-    Sleep(1);
-  }
-  std::cout << '\n';
-  std::cout << "---------------------------------------------------------------------------------------------------------------------------";
-  std::cout << '\n';
+  std::cout << '\n' << dialogue << '\n';
+  // std::cout << '\n';
+  // for (int i = 0; i < dialogue.size(); i++)
+  // {
+  //   std::cout << dialogue[i];
+  //   Sleep(1);
+  // }
+  // std::cout << '\n';
+  // std::cout << "---------------------------------------------------------------------------------------------------------------------------";
+  // std::cout << '\n';
   Game::printstats();
   if (options.size() > 0) {
     std::cout << "\n\n";
@@ -34,7 +34,7 @@ void Scene::printScene() {
   std::cout << "\n";
 }
 
-void Scene::addOption(std::string text, std::string nextSceneId, std::string statchange, std::string event) {
+void Scene::addOption(std::string text, std::string nextSceneId, std::string statchange,std::string event) {
   Option option;
   option.text = text;
   option.sceneId = nextSceneId;
@@ -48,7 +48,7 @@ void Scene::addEvent(std::string event) {
 }
 
 std::pair<std::string, std::string> Scene::chooseOption(int choice) {
-  return {options[choice-1].sceneId, options[choice-1].event};
+  return {options[choice-1].sceneId,options[choice-1].event};
 }
 
 std::string Scene::getId() {
@@ -130,9 +130,9 @@ void Game::addCurrentEvent(std::string event) {
 void Game::askForChoice() {
   while (1) {
     std::string choice;
-    std::string x = "Enter Your Choice: (q to quit game): ";
-    Sleep(1);                                                            //to prevent "E" being shift up
-    for (int i = 0; i < x[i]; i++)
+    std::string x = "Enter Your Choice: (q to quit game) (res to restart)";
+    Sleep(10);                                                            //to prevent "E" being shift up
+    for (int i = 0; i < x.size(); i++)
     {
       std::cout << x[i];
       Sleep(15);
@@ -145,6 +145,11 @@ void Game::askForChoice() {
       Game::SaveFile("Save.txt");
       cleanUp();
       exit(0);
+    }
+
+    if (choice == "res") {
+      Game::ResetSaveFile("Save.txt");
+      Game::LoadSave("Save.txt");
     }
 
     int choiceInt;
@@ -228,6 +233,7 @@ std::string Game::parseText(std::string text) {
     {"g", "\033[32m"}, // Green
     {"y", "\033[33m"}, // Yellow
     {"random", "\033[38;2;69;211;76m"}, // rgb(69, 211, 76)
+    {"gb", "\033[38;2;66;123;85m"}, // rgb(69, 211, 76)
   };
   std::vector<std::string> tags;
   std::string parsedText = "";
@@ -287,9 +293,8 @@ void Game::LoadSave(const std::string& filename){
                } else if (key == "Scene:") {
                   iss >> tempSceneid;                       // get tempSceneid 
                } else if (key == "CurrentEvents:"){
-                  std::string event;
-                  while (iss >> event) {
-                    Game::addCurrentEvent(event);           // Add each event to the Game
+                  while (iss >> tempEvent) {
+                    Game::addCurrentEvent(tempEvent);           // Add each event to the Game
                   }
                }
           }
