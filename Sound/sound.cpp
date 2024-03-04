@@ -6,7 +6,7 @@ void Playsound::playsoundbg(const std::string& sceneId) {
         Playsound::StopPlay();
         mciSendString("play Sound/sounds/musicbg.wav", NULL, 0, NULL);  
     }
-    else if(sceneId == "ending_you_die" || "ending_you_die_hp" || "ending_you_die_sa"){         // game end (you died)
+    else if(sceneId == "ending_you_die" || sceneId == "ending_you_die_hp" || sceneId == "ending_you_die_sa"){         // game end (you died)
         Playsound::StopPlay();
         mciSendString("play Sound/sounds/die.wav", NULL, 0, NULL);
     }
