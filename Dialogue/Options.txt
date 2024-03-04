@@ -175,6 +175,10 @@ prologue|พิมพ์เลข 1 เพื่อดำเนินเรื�
 19-2(3)|ออกพเนจร|ending2
 ending_you_die|[g]Play again[/]|begin|
 ending_you_die|[r]Leave[/]|Leave|
+ending_you_die_hp|[g]Play again[/]|begin|
+ending_you_die_hp|[r]Leave[/]|Leave|
+ending_you_die_sa|[g]Play again[/]|begin|
+ending_you_die_sa|[r]Leave[/]|Leave|
 ending_execution|[g]Play again[/]|begin|
 ending_execution|[r]Leave[/]|Leave|
 ending1|[g]Play again[/]|begin|

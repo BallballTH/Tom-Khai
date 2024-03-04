@@ -1,4 +1,4 @@
 HP: 100/100
 Sanity: 100/100
-Scene: prologue
-CurrentEvents:  
+Scene: begin
+CurrentEvents: 
