@@ -1,4 +1,4 @@
-HP: 70/100
-Sanity: 80/100
-Scene: 9-1(1)
-CurrentEvents:  18-3wizard_event(1) 18-3wizard_event(2) 18-3wizard_event(3) 18-3wizard_event(4) 
+HP: 100/100
+Sanity: 100/100
+Scene: prologue
+CurrentEvents:  

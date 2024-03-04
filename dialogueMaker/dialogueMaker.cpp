@@ -228,7 +228,7 @@ void Game::printAllScenes() {
 }
 
 void Game::runGame(std::string startSceneId) {
-  Playsound::playsoundbg("prologue");                             // start play stater soundbg becuz most of scene dont have soundbg
+  Playsound::playsoundbg("begin");                             // start play stater soundbg becuz most of scene dont have soundbg
   checkIfSceneExists(startSceneId);
   start(startSceneId);
   while (!gameEnded()) {
@@ -366,7 +366,7 @@ void Game::ResetSaveFile(const std::string& filename){
         // Write player stats to the file
       outFile << "HP: " << PlayerP.hp << "/" << PlayerP.hpmax << std::endl;
       outFile << "Sanity: " << PlayerP.sanity << "/" << PlayerP.sanity_max << std::endl;
-      outFile << "Scene: " << "prologue" << std::endl;
+      outFile << "Scene: " << "begin" << std::endl;
       outFile << "CurrentEvents: "<< std::endl;
       //  std::cout << "Did Reset data to " << filename << std::endl;
       outFile.close(); // Close the file
