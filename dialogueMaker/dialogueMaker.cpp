@@ -26,7 +26,7 @@ void Scene::printScene() {
         std::cout << asciiArt << std::endl;
   }
   printCharToTerminalWidth('-');
-  // std::cout << "\n\n" << dialogue << "\n\n";
+  //std::cout << "\n\n" << dialogue << "\n\n";
   std::cout << "\n\n";
   for (int i = 0; i < dialogue.size(); i++)
   {
@@ -252,7 +252,7 @@ std::string Game::parseText(std::string text) {
     {"ul", "\033[4m"}, // Underline
     {"br", "\033[38;2;57;21;0m"}, // brown
     {"bl", "\033[38;2;17;85;204m"}, // blue
-    {"bla", "\033[38;2;.0;0;0m"}, // black
+    {"bla", "\033[38;2;0;0;0m"}, // black
     {"g", "\033[32m"}, // Green 
     {"dbl", "\033[38;2;25;51;102m"}, // dark blue
     {"dg", "\033[38;2;39;78;19m"}, // dark green
