@@ -38,9 +38,11 @@ void Scene::printScene() {
   printCharToTerminalWidth('-');
   std::cout << "\n\n";
   Sleep(5);
-  Game::printstats();
-  std::cout << "\n\n";
-  printCharToTerminalWidth('-');
+  if(id != "Leave") {
+    Game::printstats();
+    std::cout << "\n\n";
+    printCharToTerminalWidth('-');
+  }
   if (options.size() > 0) {
     std::cout << "\n\n";
   }
@@ -200,21 +202,19 @@ void Game::cleanUp() {
 }
 
 bool Game::gameEnded() {
-  if (PlayerP.CheckIfdied()) {                 // Change to the "die" scene
+  if (PlayerP.CheckIfdied() && !PlayerP.DeathFlag) {                 // Change to the "die" scene
     if(PlayerP.hp == 0){               
-      setCurrentScene("ending_you_die");       // died by 0 hp           // waiting scenes
+      setCurrentScene("ending_you_die_hp");       // died by 0 hp 
     }else if(PlayerP.sanity == 0){
-      setCurrentScene("ending_you_die");       // died by 0 sanity
+      setCurrentScene("ending_you_die_sa");       // died by 0 sanity
     }
-    printCurrentScene();                       // Print the "die" scene
-    Game::ResetSaveFile("save.txt");
-    cleanUp();
-    return true;
+    PlayerP.DeathFlag = true;                     // prevent this one run again                    
+    Playsound::playsoundbg(Game::currentScene->id);
   }
   
   if (Game::currentScene->getIsEndScene()) {
-    Game::printCurrentScene();
     Game::ResetSaveFile("save.txt");
+    Game::printCurrentScene();
     cleanUp();
     return true;
   }
@@ -228,11 +228,12 @@ void Game::printAllScenes() {
 }
 
 void Game::runGame(std::string startSceneId) {
-  Playsound::playsoundbg("prologue");                             // start play stater soundbg becuz most of scene dont have soundbg
+  Playsound::playsoundbg("begin");                             // start play stater soundbg becuz most of scene dont have soundbg
   checkIfSceneExists(startSceneId);
   start(startSceneId);
   while (!gameEnded()) {
-    Playsound::playsoundbg(Game::currentScene->id);               // play soundbg of the current scece if theres any
+    if(Game::currentScene->id == "begin") Game::ResetSaveFile("save.txt");
+    Playsound::playsoundbg(Game::currentScene->id);              // play soundbg of the current scece if theres any
     printCurrentScene(); 
     askForChoice();
   }
@@ -350,7 +351,7 @@ void Game::SaveFile(const std::string& filename) {
       for (const auto& event : Game::currentEvents) {
         outFile << event << ' ';
       }
-      std::cout << "\nPlayer data saved to " << filename << std::endl;
+      std::cout << "Player data saved\n"; // << filename << std::endl;
       outFile.close(); // Close the file
     } else {
       std::cerr << "Unable to open file: " << filename << std::endl;
@@ -362,11 +363,12 @@ void Game::ResetSaveFile(const std::string& filename){
   Game::currentEvents.clear();
   PlayerP.hp = 100;
   PlayerP.sanity = 100;
+  PlayerP.DeathFlag = false;
   if (outFile.is_open()) {
         // Write player stats to the file
       outFile << "HP: " << PlayerP.hp << "/" << PlayerP.hpmax << std::endl;
       outFile << "Sanity: " << PlayerP.sanity << "/" << PlayerP.sanity_max << std::endl;
-      outFile << "Scene: " << "prologue" << std::endl;
+      outFile << "Scene: " << "begin" << std::endl;
       outFile << "CurrentEvents: "<< std::endl;
       //  std::cout << "Did Reset data to " << filename << std::endl;
       outFile.close(); // Close the file

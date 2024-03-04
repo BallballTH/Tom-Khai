@@ -11,6 +11,7 @@ class player{
         double hpmax = 100;
         double sanity = 100;
         double sanity_max = 100;
+        bool DeathFlag = false;
     public:
         bool CheckIfdied();
         void printstats();
