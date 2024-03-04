@@ -187,3 +187,5 @@ ending2|[g]Play again[/]|begin|
 ending2|[r]Leave[/]|Leave|
 ending3|[g]Play again[/]|begin|
 ending3|[r]Leave[/]|Leave|
+ending4|[g]Play again[/]|begin|
+ending4|[r]Leave[/]|Leave|
