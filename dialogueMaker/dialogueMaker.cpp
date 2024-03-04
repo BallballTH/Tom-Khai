@@ -159,13 +159,13 @@ void Game::askForChoice() {
     std::cin >> choice;
 
     if (choice == "res") {
-      Game::ResetSaveFile("Save.txt");
-      Game::LoadSave("Save.txt");
+      Game::ResetSaveFile(Game::SaveName);
+      Game::LoadSave(Game::SaveName);
     }
 
     if (choice == "q") {
       std::cout << "Thanks for playing!\n";
-      Game::SaveFile("Save.txt");
+      Game::SaveFile(Game::SaveName);
       cleanUp();
       exit(0);
     }
@@ -209,11 +209,10 @@ bool Game::gameEnded() {
       setCurrentScene("ending_you_die_sa");       // died by 0 sanity
     }
     PlayerP.DeathFlag = true;                     // prevent this one run again                    
-    Playsound::playsoundbg(Game::currentScene->id);
   }
   
   if (Game::currentScene->getIsEndScene()) {
-    Game::ResetSaveFile("save.txt");
+    Game::ResetSaveFile(Game::SaveName);
     Game::printCurrentScene();
     cleanUp();
     return true;
@@ -232,7 +231,7 @@ void Game::runGame(std::string startSceneId) {
   checkIfSceneExists(startSceneId);
   start(startSceneId);
   while (!gameEnded()) {
-    if(Game::currentScene->id == "begin") Game::ResetSaveFile("save.txt");
+    if(Game::currentScene->id == "begin") Game::ResetSaveFile(Game::SaveName);
     Playsound::playsoundbg(Game::currentScene->id);              // play soundbg of the current scece if theres any
     printCurrentScene(); 
     askForChoice();
