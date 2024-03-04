@@ -33,11 +33,10 @@ void player::printstats(){
 
     _setmode(_fileno(stdout),_O_U16TEXT);       // Set console output to UTF-16
 
+    //printHP
+    movecursor(50);
     int tempX = currentcursor('x');             // Get Current position for pirnt Sanity bar
 
-    //printHP
-    std::wcout << "\n";
-    movecursor(20);
     std::wcout << L"HP: ";
     for(int i=0; i<20; i++){
         std::wcout << L"\u2591";                    // \u2591,\u2588 are unicodes used for print HP and SA bar
@@ -50,7 +49,7 @@ void player::printstats(){
     std::wcout<<"\r";                   // move cursor back to start
     //printSanity
 
-    movecursor(tempX+50);
+    movecursor(tempX+30);
     std::wcout << L"SA: ";
     for(int i=0; i<20; i++){
         std::wcout << L"\u2591";
@@ -62,7 +61,6 @@ void player::printstats(){
 
     _setmode(_fileno(stdout), _O_TEXT);              // Set console output to default before its changed
 
-    std::cout<<"\n\n--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
 }
 
 void player::changestat(const std::string& change) {
