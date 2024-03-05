@@ -26,14 +26,14 @@ void Scene::printScene() {
         std::cout << asciiArt << std::endl;
   }
   printCharToTerminalWidth('-');
-  // std::cout << "\n\n" << dialogue << "\n\n";
-  std::cout << "\n\n";
-  for (int i = 0; i < dialogue.size(); i++)
-  {
-    std::cout << dialogue[i];
-    Sleep(1);
-  }
-  std::cout << "\n\n";
+  std::cout << "\n\n" << dialogue << "\n\n";
+  // std::cout << "\n\n";
+  // for (int i = 0; i < dialogue.size(); i++)
+  // {
+  //   std::cout << dialogue[i];
+  //   Sleep(1);
+  // }
+  // std::cout << "\n\n";
   Sleep(5);
   printCharToTerminalWidth('-');
   std::cout << "\n\n";
@@ -148,7 +148,7 @@ void Game::addCurrentEvent(std::string event) {
 void Game::askForChoice() {
   while (1) {
     std::string choice;
-    std::string x = "Enter Your Choice: (q to quit game) (res to restart): ";
+    std::string x = "Enter Your Choice: (q to quit game) (r to restart): ";
     Sleep(10);                                                            //to prevent "E" being shift up
     for (int i = 0; i < x.size(); i++)
     {
@@ -156,9 +156,13 @@ void Game::askForChoice() {
       Sleep(15);
     }
     
-    std::cin >> choice;
+    std::getline(std::cin, choice);
+    if (choice.size() <= 0 || choice.size() > 1 || choice.find(" ") != -1) {
+      std::cout << "Invalid choice." << '\n';
+      continue;
+    }
 
-    if (choice == "res") {
+    if (choice == "r") {
       Game::ResetSaveFile(Game::SaveName);
       Game::LoadSave(Game::SaveName);
     }
