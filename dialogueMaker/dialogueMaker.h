@@ -76,6 +76,9 @@ class Game {
   friend class Playsound;
 
   public:
+
+    static inline std::string SaveName;
+
     static void SaveFile(const std::string& filename);
 
     static void LoadSave(const std::string& filename);

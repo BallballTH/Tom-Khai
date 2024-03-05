@@ -9,5 +9,6 @@ int main() {
   SetASCII();
 
   // Game loop
-  Game::LoadSave("save.txt");
+  Game::SaveName = "Save.txt";
+  Game::LoadSave(Game::SaveName);
 }
