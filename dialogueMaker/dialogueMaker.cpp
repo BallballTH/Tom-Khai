@@ -26,7 +26,7 @@ void Scene::printScene() {
         std::cout << asciiArt << std::endl;
   }
   printCharToTerminalWidth('-');
-  //std::cout << "\n\n" << dialogue << "\n\n";
+  // std::cout << "\n\n" << dialogue << "\n\n";
   std::cout << "\n\n";
   for (int i = 0; i < dialogue.size(); i++)
   {
@@ -165,7 +165,6 @@ void Game::askForChoice() {
 
     if (choice == "q") {
       std::cout << "Thanks for playing!\n";
-      Game::SaveFile(Game::SaveName);
       cleanUp();
       exit(0);
     }
@@ -233,6 +232,7 @@ void Game::runGame(std::string startSceneId) {
   while (!gameEnded()) {
     if(Game::currentScene->id == "begin") Game::ResetSaveFile(Game::SaveName);
     Playsound::playsoundbg(Game::currentScene->id);              // play soundbg of the current scece if theres any
+    Game::SaveFile(Game::SaveName);
     printCurrentScene(); 
     askForChoice();
   }

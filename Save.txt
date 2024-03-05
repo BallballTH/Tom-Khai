@@ -1,4 +1,4 @@
-HP: 100/100
-Sanity: 100/100
+HP: 70/100
+Sanity: 30/100
 Scene: begin
-CurrentEvents: 
+CurrentEvents:
