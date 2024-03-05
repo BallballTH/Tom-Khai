@@ -6,22 +6,23 @@ void Playsound::playsoundbg(const std::string& sceneId) {
         Playsound::StopPlay();
         mciSendString("play Sound/sounds/musicbg.wav", NULL, 0, NULL);  
     }
-    else if(sceneId == "ending_you_die" || sceneId == "ending_you_die_hp" || sceneId == "ending_you_die_sa"){                                       // game end (you died)
+    else if(sceneId == "ending_you_die" || sceneId == "ending_you_die_hp" || sceneId == "ending_you_die_sa"){         // game end (you died)
         Playsound::StopPlay();
         mciSendString("play Sound/sounds/die.wav", NULL, 0, NULL);
     }
-    else if(sceneId == "ending_execution"){                                     // game end (ศาลประหารชีวิต)
+    else if(sceneId == "ending_execution"){                                                     // game end (ศาลประหารชีวิต)
         Playsound::StopPlay();
         mciSendString("play Sound/sounds/execution.wav", NULL, 0, NULL);
     }
-    else if(sceneId == "ending1"){                                              // game end (good end)
+    else if(sceneId == "ending1"){                                                              // game end (good end)
         Playsound::StopPlay();
         mciSendString("play Sound/sounds/ending1.wav", NULL, 0, NULL);
     }
-    else if(sceneId == "ending2"){                                              // game end (normal end)
-        Playsound::StopPlay();
+    else if(sceneId == "ending2"){                                                              // game end (normal end)
+        Playsound::StopPlay();  
         mciSendString("play Sound/sounds/ending2.wav", NULL, 0, NULL);
     }
+  
     else if(sceneId == "ending3" || sceneId == "ending4" ){                                              // game end (bad end)
         Playsound::StopPlay();
         mciSendString("play Sound/sounds/ending3.wav", NULL, 0, NULL);
