@@ -22,13 +22,9 @@ void Playsound::playsoundbg(const std::string& sceneId) {
         Playsound::StopPlay();
         mciSendString("play Sound/sounds/ending2.wav", NULL, 0, NULL);
     }
-    else if(sceneId == "ending3"){                                              // game end (bad end)
+    else if(sceneId == "ending3" || sceneId == "ending4" ){                                              // game end (bad end)
         Playsound::StopPlay();
         mciSendString("play Sound/sounds/ending3.wav", NULL, 0, NULL);
-    }
-    else if(sceneId == "ending4"){
-        Playsound::StopPlay();
-        mciSendString("play Sound/sounds/ending4.wav", NULL, 0, NULL);
     }else return;
 }
 
