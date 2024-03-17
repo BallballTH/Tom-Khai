@@ -147,7 +147,6 @@ void Game::addCurrentEvent(std::string event) {
 
 void Game::askForChoice() {
   while (1) {
-    std::string input_buffer;
     std::string choice;
     std::string x = "Enter Your Choice: (q to quit game) (r to restart): ";
     Sleep(10);                                                            //to prevent "E" being shift up
