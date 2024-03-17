@@ -8,6 +8,7 @@
 #include <set>
 #include <fstream>      // for file streams
 #include <sstream>      // for string stream
+#include <conio.h>      // For _kbhit and _getch on Windows
 
 struct Option {
   std::string text;
@@ -98,5 +99,7 @@ class Game {
     static void printAllScenes();
 
     static void runGame(std::string startSceneId);
+
+    static void clearInputBuffer();
 
 };
