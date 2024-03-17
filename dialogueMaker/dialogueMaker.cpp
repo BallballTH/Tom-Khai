@@ -26,14 +26,14 @@ void Scene::printScene() {
         std::cout << asciiArt << std::endl;
   }
   printCharToTerminalWidth('-');
-  std::cout << "\n\n" << dialogue << "\n\n";
-  // std::cout << "\n\n";
-  // for (int i = 0; i < dialogue.size(); i++)
-  // {
-  //   std::cout << dialogue[i];
-  //   Sleep(1);
-  // }
-  // std::cout << "\n\n";
+  //  std::cout << "\n\n" << dialogue << "\n\n";
+  std::cout << "\n\n";
+  for (int i = 0; i < dialogue.size(); i++)
+  {
+    std::cout << dialogue[i];
+    Sleep(1);
+  }
+  std::cout << "\n\n";
   Sleep(5);
   printCharToTerminalWidth('-');
   std::cout << "\n\n";
@@ -155,7 +155,7 @@ void Game::askForChoice() {
       std::cout << x[i];
       Sleep(15);
     }
-    
+    clearInputBuffer();
     std::getline(std::cin, choice);
     if (choice.size() <= 0 || choice.size() > 1 || choice.find(" ") != -1) {
       std::cout << "Invalid choice." << '\n';
@@ -378,4 +378,10 @@ void Game::ResetSaveFile(const std::string& filename){
     } else {
       std::cerr << "Unable to open file: " << filename << std::endl;
     }  
+}
+
+void Game::clearInputBuffer(){
+  while(_kbhit()){
+    _getch();
+  }
 }
